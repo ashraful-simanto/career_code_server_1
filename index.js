@@ -20,8 +20,14 @@ app.use(express.json());
 app.use(cookieParser());
 
 var admin = require("firebase-admin");
- const decoded = Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT,'base64').toString('utf8');
-const serviceAccount = JSON.parse(decoded);
+//  const decoded = Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT,'base64').toString('utf8');
+// const serviceAccount = JSON.parse(decoded);
+
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+// });
+
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -256,6 +262,7 @@ app.get("/", (req, res) => {
   res.send("server is running");
 });
 
-app.listen(port, () => {
-  console.log(`server is running on port ${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`server is running on port ${port}`);
+// });
+module.exports = app;
