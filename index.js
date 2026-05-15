@@ -21,9 +21,7 @@ app.use(cookieParser());
 
 var admin = require("firebase-admin");
 
-const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_KEY);
-
-serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, "\n");
+const serviceAccount = require("./firebase_admin_key.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -125,7 +123,7 @@ async function run() {
 
       res.cookie("token", token, {
         httpOnly: true,
-        secure: true,
+        secure: false,
       });
 
       res.send(token);
